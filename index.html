@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+
+ *{margin:0;padding:0}
+ body{background-color:#000;}
+.center{position:absolute;margin:auto;left:0;right:0;top:0;bottom:0;}
+.full{height:500px;width:980px;}
+.box{height:100px;width:196px;background-color:#fff;position:absolute;padding:3px;transition:transform 2s,padding 2s;}
+ .pic{width: 100%;height:100%;transition:transform 2s 2s;}
+</style>
+<script src="jquery-3.1.0.js">
+</script>
+
+<script>
+	$(function(){
+	  init();
+	  showAll();
+		function init(){
+		 var $full=$(".full");
+		   for(var i=0;i<25;i++){
+			    var x=(i%5)*196;
+			    var y=parseInt(i/5)*100;
+			    $("<div class='box'><div class='pic'></div></div>").css({
+				    "left":x+"px",
+				    "top":y+"px", 				 
+				    }).appendTo($full)
+			 }
+			 var state=true;
+			 $(".box").click(function(){				
+				 if(state){
+				    var index=$(this).index();	 
+					    shoWItem(index)
+						} else{
+							 showAll();					 
+					 }				 
+				  state=!state				 
+				 })		 
+			 	
+		 };
+		 function showAll(){						
+				$(".box").each(function(i) {
+                    var x=i % 5;
+			        var y=parseInt(i/5);
+			        var deg=Math.random()*60-30;
+			        $(this).css({"transform":"rotate("+deg+"deg)"+"translate("+(x-2)*70+"px,"+(y-2)*70+"px)"})
+					
+					
+					;
+                }).find(".pic").each(function(i){
+                	$(this).css({
+                		"background-image":"url(images/"+i+".jpg)",
+                		"background-size":"cover",
+                		"transform":"sclae(0.96,0.98)"
+                		
+                	})
+                	
+                	
+                	
+                })
+               
+                
+			 }
+			
+		function shoWItem(index){			
+			   $(".box").css({"transform":"translate(0,0) rotate(0deg)"})
+				.find(".pic").each(function(i){
+					     var x=i % 5;
+			             var y=parseInt(i/5);					  
+					   $(this).css({"background-position":x*25+"% "+y*25+"%",
+					               "background-image":"url(images/"+index+".jpg)",
+				                   "background-size":"auto",
+				                   "transform":"scale(1)"
+			         })
+					}).animate({"opacity":0.3},Math.random()*2700+300)
+					 .animate({"opacity":1})
+			 };
+		
+	
+		})
+
+</script>
+
+</head>
+
+<body>
+	<div class="full center"></div>
+</body>
+</html>
